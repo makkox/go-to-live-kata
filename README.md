@@ -3,7 +3,7 @@ Go to live! kata
 
 # Ansible Wordpress + Apache + PHP + MySQL
 
-Questo progetto è stato sviluppato su macchina locale, mentre le componenti wordpress, apache, php e mysql vengono deployate automaticamente su 2 macchine virtuali (vm), che vengono instanziate da vagrant. Come specificato nel file 'host', in una vm (AppServer) viene deployato MySQL server mentre nella vm WebServer vengono caricate le componenti Wordpress, Apache e PHP.
+Questo progetto è stato sviluppato su macchina locale, mentre le componenti wordpress (versione 4.9.6), apache, php e mysql vengono deployate automaticamente su 2 macchine virtuali (vm), che vengono instanziate da vagrant. Come specificato nel file 'host', in una vm (AppServer) viene deployato MySQL server mentre nella vm WebServer vengono caricate le componenti Wordpress, Apache e PHP.
 Gli indirizzi IP e le porte delle due VM sono specificati nel Vagrantfile.
 
 Allo scopo di rendere il codice pulito il più possibile, è stato utilizzato _ansible-galaxy_.
