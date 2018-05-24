@@ -1,0 +1,10 @@
+---
+- hosts: AppServer
+  roles:
+    - mysql
+
+- hosts: WebServer
+  roles:
+    - apache
+    - php
+    - wordpress

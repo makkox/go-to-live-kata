@@ -1,0 +1,71 @@
+---
+- name: update apt
+  apt: update_cache=yes cache_valid_time=3600
+  become: yes
+
+- name: Install packages
+  apt: name={{item}} state=present
+  become: yes
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: Copy .my.cnf file with root password credentials
+  become: true
+  become_user: root
+  template: src=roles/mysql/templates/.my.cnf dest=/etc/mysql/my.cnf owner=root mode=0600
+
+- name: copy .my_cred.cnf file to /root path
+  become: true
+  become_user: root
+  template: src=roles/mysql/templates/.my_cred.cnf dest=/root/.my.cnf owner=root mode=0600
+
+- name: Start the MySQL service
+  become: true
+  become_user: root
+  action: service name=mysql state=restarted
+
+- name: Set root user password
+  become: true
+  become_user: root
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ wp_mysql_password }}"
+    login_user: root
+    login_password: "{{ wp_mysql_password }}"
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+    state: present
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+#- name: Copy .my2.cnf file with root password credentials
+#  become: true
+#  become_user: root
+#  template: src=roles/mysql/templates/.my2.cnf dest=/etc/mysql/my.cnf owner=root mode=0600
+
+- name: copy .my_cred2.cnf file to /root path
+  become: true
+  become_user: root
+  template: src=roles/mysql/templates/.my_cred2.cnf dest=/root/.my.cnf owner=root mode=0600
+
+- name: Create mysql user
+  become_user: root
+  become: true
+  mysql_user: 
+    name={{ wp_mysql_user }} 
+    host={{ wp_user_host }}
+    password={{ wp_mysql_user_pwd }} 
+    priv=*.*:ALL
+
+- name: Create mysql database
+  become: true
+  mysql_db: name={{ wp_mysql_db }} state=present
+
+
+  
+
