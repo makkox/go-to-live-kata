@@ -1,28 +1,24 @@
 Go to live! kata
 ==================================
 
-Contained in this repo, there are some instructions for a new application that will go live in the next month!
+#Ansible Wordpress + Apache + PHP + MySQL
 
-You will need to:
+Questo progetto è stato sviluppato su macchina locale, mentre le componenti wordpress, apache, php e mysql vengono deployate automaticamente su 2 macchine virtuali (vm), che vengono instanziate da vagrant. Come specificato nel file 'host', in una vm (AppServer) viene deployato MySQL server mentre nella vm WebServer vengono caricate le componenti Wordpress, Apache e PHP.
+Gli indirizzi IP e le porte delle due VM sono specificati nel Vagrantfile.
 
-1. Fork this repository.
+Allo scopo di rendere il codice pulito il più possibile, è stato utilizzato _ansible-galaxy_.
 
-2. Automate the creation of the infrastructure and the setup of the application.
+L'accesso a Wordpress si effettua immettendo l'url l'indirizzo relativo della VM WebServer, il quale effettuerà una connessione al db mysql(con nome utente e password) 
 
-   You have only these instructions:
+##Requisiti
+* Ansible (versione >= 2.5.3)
+* Vagrant (versione >= 2.1.1)
+* OpenSSL
+* Virtualbox
 
-   2.1 It works on Ubuntu Linux 14.04 x64
-
-   2.2 It's based on the last version of WordPress (it will be more useful if we can parameterize the version)
-
-   2.3 You can choose Apache, Nginx or whatever you want
-
-   For any other issues or question you will have to ask to the developers. In this case please ask us without problems :)
-
-3. Once deployed, the application should be secure, fast and stable. Assume that the machine is running on the public Internet and should be hardened and locked down.
-
-4. Make any assumptions that you need to. This is an opportunity to showcase your skills, so if you want to, implement the deployment process with any additional features, tools or techniques you'd like to.
-
-5. We are evaluating solutions based on the architecture and quality of the deployment. Show us just how beautiful, clean and pragmatic your code can be.
-
-6. Once your solution is ready, please send us the link of your project.
+##Istruzioni
+1. Scaricare l'immagine ubuntu 14.04 x64.
+2. Settare l'IP delle vm nel file _Vagrantfile_, oppure lasciare quelle preimpostate.
+3. Eseguire 'vagrant up'.
+4. Terminato la creazione dell'infrastruttura e il deploy delle app, immettere nel url del browser l'IP della vm dove si trova Wordpress.
+5. Creare il proprio sito.
