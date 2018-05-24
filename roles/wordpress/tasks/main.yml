@@ -2,7 +2,7 @@
 # tasks file for wordpress
 - name: Download WordPress  
   get_url:
-    url=https://wordpress.org/latest.tar.gz 
+    url=https://wordpress.org/wordpress-4.9.6.tar.gz
     dest=/tmp/wordpress.tar.gz
     validate_certs=no 
   become: true
@@ -34,6 +34,6 @@
     - {'regexp': "define\\('DB_NAME', '(.)+'\\);", 'line': "define('DB_NAME', '{{wp_mysql_db}}');"}        
     - {'regexp': "define\\('DB_USER', '(.)+'\\);", 'line': "define('DB_USER', '{{wp_mysql_user}}');"}
     - {'regexp': "define\\('DB_HOST', '(.)+'\\);", 'line': "define('DB_HOST', '{{wp_mysql_host}}');"}
-    - {'regexp': "define\\('DB_DEBUG', '(.)+'\\);", 'line': "define('DB_DEBUG', 'true');"}        
+    - {'regexp': "define\\('DB_DEBUG', '(.)+'\\);", 'line': "define('DB_DEBUG', 'false');"}        
     - {'regexp': "define\\('DB_PASSWORD', '(.)+'\\);", 'line': "define('DB_PASSWORD', '{{wp_mysql_user_pwd}}');"}
   become: true
